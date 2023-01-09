@@ -1,5 +1,7 @@
+import 'package:expenses_tracker/widgets/new_transcation.dart';
+import 'package:expenses_tracker/widgets/transcation_list.dart';
+import 'package:expenses_tracker/widgets/users_transcations.dart';
 import 'package:flutter/material.dart';
-import 'transcations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,20 +24,10 @@ class MyApp extends StatelessWidget {
 class MyappHomePage extends StatelessWidget {
   MyappHomePage({super.key});
 
-  final List<Transcations> transcation = [
-    Transcations(
-      id: 'T1',
-      date: DateTime.now(),
-      title: 'Shoes',
-      amount: 69.99,
-    ),
-    Transcations(
-      id: 'T2',
-      date: DateTime.now(),
-      title: 'car-wash',
-      amount: 10,
-    ),
-  ];
+  // String? amountDetail;
+  // String? title;
+  final amoutInputController = TextEditingController();
+  final titleInputController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +36,7 @@ class MyappHomePage extends StatelessWidget {
           'Expenses-Tracker',
         ),
       ),
-      body:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
         Container(
           width: double.infinity,
           child: Card(
@@ -59,15 +50,41 @@ class MyappHomePage extends StatelessWidget {
             ),
           ),
         ),
-        Column(
-          children: transcation.map((tx) {
-            return Card(
-              child: Text(
-                tx.title.toString(),
-              ),
-            );
-          }).toList(),
-        ),
+        UersTranscations(),
+        // Card(
+        //   child: Container(
+        //     margin: EdgeInsets.all(10),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.end,
+        //       children: [
+        //         TextField(
+        //           controller: amoutInputController,
+        //           decoration: InputDecoration(
+        //             labelText: 'Amount',
+        //           ),
+        //           // onChanged: (value) => amountDetail = value,
+        //         ),
+        //         TextField(
+        //           controller: titleInputController,
+        //           decoration: InputDecoration(
+        //             labelText: 'Title',
+        //           ),
+        //           // onChanged: (value) => title = value,
+        //         ),
+        //         TextButton(
+        //           onPressed: () {
+        //             print(amoutInputController.text);
+        //             print(titleInputController.text);
+        //           },
+        //           child: Text(
+        //             'Add Transcations',
+        //             style: TextStyle(color: Colors.purple),
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ]),
     );
   }

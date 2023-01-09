@@ -7,9 +7,9 @@ class Transcations {
   final DateTime? date;
 
   Transcations({
-    @required this.id,
-    required this.date,
     required this.title,
+    required this.id,
+    required this.date,
     required this.amount,
   });
 }
