@@ -1,91 +1,120 @@
 import 'package:expenses_tracker/widgets/new_transcation.dart';
-import 'package:expenses_tracker/widgets/transcation_list.dart';
-import 'package:expenses_tracker/widgets/users_transcations.dart';
+import 'package:expenses_tracker/widgets/transcationsList.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import 'model/transcations.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Myapp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Myapp extends StatelessWidget {
+  const Myapp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expenses-Tracker',
       debugShowCheckedModeBanner: false,
-      home: MyappHomePage(),
+      home: MyappWidget(),
     );
   }
 }
 
-class MyappHomePage extends StatelessWidget {
-  MyappHomePage({super.key});
+//creating a new clascs
+class MyappWidget extends StatefulWidget {
+  MyappWidget({super.key});
 
-  // String? amountDetail;
-  // String? title;
-  final amoutInputController = TextEditingController();
-  final titleInputController = TextEditingController();
+  @override
+  State<MyappWidget> createState() => _MyappWidgetState();
+}
+
+class _MyappWidgetState extends State<MyappWidget> {
+  final List<Transcations> _usertransactions = [
+    Transcations(
+      title: 'Shoes',
+      id: 'T1',
+      date: DateTime.now(),
+      amount: 320,
+    ),
+    Transcations(
+      title: 'Shoes-2',
+      id: 'T2',
+      date: DateTime.now(),
+      amount: 3202,
+    )
+  ];
+
+  void _addNewTranscation(String newTitle, double newAmount) {
+    //creating newTransactions
+    final newTx = Transcations(
+      title: newTitle,
+      amount: newAmount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+    setState(() {
+      _usertransactions.add(newTx);
+    });
+  }
+
+  void _startNewTransactions(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+            child: NewTranscations(
+              addNewTx: _addNewTranscation,
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text(
           'Expenses-Tracker',
         ),
-      ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Container(
-          width: double.infinity,
-          child: Card(
-            color: Colors.deepPurple,
-            child: Text(
-              'CHART',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
+        actions: [
+          IconButton(
+            onPressed: (() => _startNewTransactions(context)),
+            icon: Icon(
+              Icons.add,
             ),
-          ),
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              child: Card(
+                color: Colors.black,
+                child: Text(
+                  'Chart',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            TranscationsList(transaction: _usertransactions)
+          ],
         ),
-        UersTranscations(),
-        // Card(
-        //   child: Container(
-        //     margin: EdgeInsets.all(10),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.end,
-        //       children: [
-        //         TextField(
-        //           controller: amoutInputController,
-        //           decoration: InputDecoration(
-        //             labelText: 'Amount',
-        //           ),
-        //           // onChanged: (value) => amountDetail = value,
-        //         ),
-        //         TextField(
-        //           controller: titleInputController,
-        //           decoration: InputDecoration(
-        //             labelText: 'Title',
-        //           ),
-        //           // onChanged: (value) => title = value,
-        //         ),
-        //         TextButton(
-        //           onPressed: () {
-        //             print(amoutInputController.text);
-        //             print(titleInputController.text);
-        //           },
-        //           child: Text(
-        //             'Add Transcations',
-        //             style: TextStyle(color: Colors.purple),
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
-      ]),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _startNewTransactions(context),
+        child: Icon(
+          Icons.add,
+        ),
+      ),
     );
   }
 }
