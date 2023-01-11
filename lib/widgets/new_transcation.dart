@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
-class NewTranscations extends StatelessWidget {
+class NewTranscations extends StatefulWidget {
   NewTranscations({
     super.key,
     required this.addNewTx,
   });
   final Function addNewTx;
+
+  @override
+  State<NewTranscations> createState() => _NewTranscationsState();
+}
+
+class _NewTranscationsState extends State<NewTranscations> {
 //creating the Transcations List
   final titleController = TextEditingController();
+
   final amountController = TextEditingController();
 
   //creating a new fucntion
@@ -18,13 +25,14 @@ class NewTranscations extends StatelessWidget {
     if (newTxtitlecontroller.isEmpty || newTxamouncontroller <= 0) {
       return;
     }
-    addNewTx(
+    widget.addNewTx(
       // titleController.text,
       // double.parse(
       //   amountController.text,
       newTxtitlecontroller,
       newTxamouncontroller,
     );
+    Navigator.of(context).pop();
   }
 
   @override
