@@ -37,12 +37,16 @@ class _MyappWidgetState extends State<MyappWidget> {
     }).toList();
   }
 
-  void _addNewTranscation(String newTitle, double newAmount) {
+  void _addNewTranscation(
+    String newTitle,
+    double newAmount,
+    DateTime chosenDate,
+  ) {
     //creating newTransactions
     final newTx = Transcations(
       title: newTitle,
       amount: newAmount,
-      date: DateTime.now(),
+      date: chosenDate,
       id: DateTime.now().toString(),
     );
     //setting the state
