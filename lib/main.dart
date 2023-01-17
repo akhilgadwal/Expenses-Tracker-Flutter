@@ -1,7 +1,5 @@
+import 'package:expenses_tracker/widgets/myapp_widget.dart';
 import 'package:flutter/material.dart';
-
-import 'model/transcations.dart';
-import 'widgets/mainappwidget.dart';
 
 void main() {
   runApp(const Myapp());
@@ -13,28 +11,25 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        textTheme: ThemeData.light().textTheme.copyWith(
-              titleMedium: TextStyle(
-                fontFamily: 'Opensans',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.purple,
-              ),
-            ),
-        fontFamily: 'Quicksand',
-        appBarTheme: AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontFamily: 'Opensans',
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        //primaryColor: Colors.black,
-        //brightness: Brightness.dark,
-      ),
       debugShowCheckedModeBanner: false,
       home: MyappWidget(),
+      theme: ThemeData(
+          primarySwatch: Colors.grey,
+          accentColor: Colors.white,
+          fontFamily: 'QuickSand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+              titleMedium: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20)),
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
+          )
+          // colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.white),
+          ),
     );
   }
 }
