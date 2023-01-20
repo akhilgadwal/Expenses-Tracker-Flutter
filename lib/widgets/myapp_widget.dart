@@ -76,6 +76,21 @@ class _MyappWidgetState extends State<MyappWidget> {
 
   bool _showchart = false;
 
+  Widget _appBarBuilding() {
+    return AppBar(
+      title: Text(
+        'Personal Expenses',
+      ),
+      actions: [
+        IconButton(
+            onPressed: () => _startNewTransaction(context),
+            icon: Icon(
+              Icons.add,
+            ))
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLanscape =
@@ -142,7 +157,7 @@ class _MyappWidgetState extends State<MyappWidget> {
                 ),
               ),
             if (!isLanscape) txList,
-            if (isLanscape )
+            if (isLanscape)
               _showchart
                   ? Center(
                       child: Container(
